@@ -32,6 +32,7 @@ defmodule Pento.Accounts.User do
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password])
+    |> validate_confirmation(:password, message: "does not match password", required: true)
     |> validate_email()
     |> validate_password(opts)
   end
@@ -98,7 +99,7 @@ defmodule Pento.Accounts.User do
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
-    |> validate_confirmation(:password, message: "does not match password")
+    |> validate_confirmation(:password, required: true, message: "does not match password")
     |> validate_password(opts)
   end
 
