@@ -4,8 +4,16 @@ defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
   @start_message "Guess a number."
-  def mount(_params, _session, socket) do
-    {:ok, setup_game(socket)}
+  def mount(_params, session, socket) do
+    socket =
+      socket
+      |> assign(
+        user: Pento.Accounts.get_user_by_session_token(session["user_token"]),
+        session_id: session["live_socket_id"]
+      )
+      |> setup_game()
+
+    {:ok, socket}
   end
 
   def render(assigns) do
@@ -22,13 +30,17 @@ defmodule PentoWeb.WrongLive do
         <button>Restart!</button>
         <% end %>
       <% else %>
-      <%= for n <- 1..10 do %>
+        <%= for n <- 1..10 do %>
         <a href="#" phx-click="guess" phx-value-number="<%= n %>">
           <%= n %>
         </a>
-      <% end %>
+        <% end %>
       <% end %>
     </h2>
+    <pre>
+      <%= @user.email %>
+      <%= @session_id %>
+    </pre>
     """
   end
 
