@@ -1,50 +1,61 @@
 {
-  "version": "0.1",
-  "dictionaryDefinitions": [
-    {
-      "name": "rubyKeywords",
-      "path": "./dictionaries/rubyKeywords.txt"
-    },
-    {
-      "name": "htmlSupp",
-      "path": "./dictionaries/htmlSupp.txt"
-    }
-  ],
-  "dictionaries": [
-    "webDev"
-  ],
-  "languageSettings": [
-    {
-      "languageId": "ruby",
-      "dictionaries": ["rubyKeywords"]
-    },
-    {
-      "languageId": "gemfile",
-      "dictionaries": ["rubyKeywords"]
-    },
-    {
-      "languageId": "jsonc",
-      "dictionaries": ["rubyKeywords"]
-    },
-    {
-      "languageId": "html",
-      "dictionaries": ["htmlSupp"]
-    },
-    {
-      "languageId": "eex",
-      "dictionaries": [
-        "htmlSupp"
-      ]
-    },
-    {
-      "languageId": "markdown",
-      "dictionaries": [
-        "htmlSupp",
-        "elixirSupp",
-        "webDev",
-        "elixir"
-      ]
-    }
-  ],
-  "words": []
+    "version": "0.1",
+    "dictionaryDefinitions": [
+        {
+            "name": "elixirSupp",
+            "path": "./dictionaries/elixirSupp.txt"
+        },
+        {
+            "name": "htmlSupp",
+            "path": "./dictionaries/htmlSupp.txt"
+        },
+        {
+            "name": "webDev",
+            "path": "./dictionaries/webDev.txt"
+        }
+    ],
+    "dictionaries": [
+        "webDev"
+    ],
+    "languageSettings": [
+        {
+            "languageId": "jsonc",
+            "dictionaries": [
+                "rubyKeywords"
+            ]
+        },
+        {
+            "languageId": "html",
+            "dictionaries": [
+                "htmlSupp"
+            ]
+        },
+        {
+            "languageId": "eex",
+            "dictionaries": [
+                "htmlSupp"
+            ]
+        },
+        {
+            "languageId": "elixir",
+            "dictionaries": [
+                "elixirSupp",
+                "htmlSupp"
+            ]
+        },
+        {
+            "languageId": "markdown",
+            "dictionaries": [
+                "htmlSupp",
+                "elixirSupp",
+                "webDev",
+                "elixir"
+            ]
+        }
+    ],
+    "words": [
+        "invalidtoken",
+        "Pento",
+        "validtoken"
+    ]
 }

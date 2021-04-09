@@ -15,11 +15,19 @@ defmodule Pento.AccountsFixtures do
     })
   end
 
-  def user_fixture(attrs \\ %{}) do
+  def user_fixture(), do: user_fixture(%{}, confirmed: true)
+
+  def user_fixture(attrs \\ %{}, confirmed: confirmed) do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
       |> Pento.Accounts.register_user()
+
+    if confirmed do
+      user
+      |> confirm_user_multi()
+      |> Pento.Repo.transaction()
+    end
 
     user
   end
@@ -28,5 +36,14 @@ defmodule Pento.AccountsFixtures do
     {:ok, captured} = fun.(&"[TOKEN]#{&1}[TOKEN]")
     [_, token, _] = String.split(captured.body, "[TOKEN]")
     token
+  end
+
+  defp confirm_user_multi(user) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, Pento.Accounts.User.confirm_changeset(user))
+    |> Ecto.Multi.delete_all(
+      :tokens,
+      Pento.Accounts.UserToken.user_and_contexts_query(user, ["confirm"])
+    )
   end
 end

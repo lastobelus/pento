@@ -4,3 +4,6 @@ floki
 postgrex
 repo
 repos
+datetime
+Bcrypt
+naive_datetime
