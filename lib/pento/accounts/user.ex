@@ -8,6 +8,7 @@ defmodule Pento.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    field :is_blocked, :boolean, default: false
 
     timestamps()
   end
@@ -132,6 +133,13 @@ defmodule Pento.Accounts.User do
   """
   def is_confirmed?(user) do
     user.confirmed_at != nil
+  end
+
+  @doc """
+    Returns true if the user has been blocked
+  """
+  def is_blocked?(user) do
+    user.is_blocked
   end
 
   @doc """
