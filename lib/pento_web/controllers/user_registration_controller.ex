@@ -20,8 +20,11 @@ defmodule PentoWeb.UserRegistrationController do
           )
 
         conn
-        |> put_flash(:info, "User created successfully.")
-        |> UserAuth.log_in_user(user)
+        |> put_flash(
+          :info,
+          "User created successfully. Please check your email for confirmation instructions."
+        )
+        |> redirect(to: Routes.user_session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
