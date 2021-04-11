@@ -352,4 +352,38 @@ defmodule Pento.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Blocks the user.
+  """
+  def block_user(user) do
+    {:ok, %{tokens: _tokens, user: user}} =
+      user
+      |> block_user_multi()
+      |> Repo.transaction()
+
+    {:ok, user}
+  end
+
+  defp block_user_multi(user) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, User.block_user_changeset(user))
+    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+  end
+
+  @spec unblock_user(
+          {map, map}
+          | %{
+              :__struct__ => atom | %{:__changeset__ => any, optional(any) => any},
+              optional(atom) => any
+            }
+        ) :: any
+  @doc """
+  Blocks the user.
+  """
+  def unblock_user(user) do
+    user
+    |> User.unblock_user_changeset()
+    |> Repo.update()
+  end
 end

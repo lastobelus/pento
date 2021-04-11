@@ -113,6 +113,20 @@ defmodule Pento.Accounts.User do
   end
 
   @doc """
+  Blocks the account by setting `is_blocked` to true.
+  """
+  def block_user_changeset(user) do
+    change(user, is_blocked: true)
+  end
+
+  @doc """
+  Unblocks the account by setting `is_blocked` to false.
+  """
+  def unblock_user_changeset(user) do
+    change(user, is_blocked: false)
+  end
+
+  @doc """
   Verifies the password.
 
   If there is no user or the user doesn't have a password, we call
