@@ -44,6 +44,10 @@ defmodule PentoWeb.Router do
     end
   end
 
+  if Mix.env() in [:dev] do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   ## Authentication routes
 
   scope "/", PentoWeb do

@@ -23,3 +23,6 @@ config :pento, PentoWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Configure auth mailer adapter for Bamboo
+config :pento, Pento.Mailer, adapter: Bamboo.TestAdapter
