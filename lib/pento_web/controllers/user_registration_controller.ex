@@ -11,6 +11,7 @@ defmodule PentoWeb.UserRegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    IO.puts("user_params: #{inspect(user_params, pretty: true)}")
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         {:ok, _} =

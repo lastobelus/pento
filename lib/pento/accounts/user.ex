@@ -5,6 +5,7 @@ defmodule Pento.Accounts.User do
   @derive {Inspect, except: [:password]}
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
@@ -32,10 +33,13 @@ defmodule Pento.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :username])
+    # |> IO.inspect(label: "changeset after cast", pretty: true)
     |> validate_confirmation(:password, message: "does not match password", required: true)
     |> validate_email()
+    |> validate_required([:username])
     |> validate_password(opts)
+    # |> IO.inspect(label: "final changeset", pretty: true)
   end
 
   defp validate_email(changeset) do
