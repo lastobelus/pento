@@ -7,7 +7,12 @@ defmodule Pento.CatalogTest do
     alias Pento.Catalog.Product
 
     @valid_attrs %{description: "some description", name: "some name", sku: 42, unit_price: 120.5}
-    @update_attrs %{description: "some updated description", name: "some updated name", sku: 43, unit_price: 456.7}
+    @update_attrs %{
+      description: "some updated description",
+      name: "some updated name",
+      sku: 43,
+      unit_price: 456.7
+    }
     @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
     def product_fixture(attrs \\ %{}) do
@@ -65,6 +70,11 @@ defmodule Pento.CatalogTest do
     test "change_product/1 returns a product changeset" do
       product = product_fixture()
       assert %Ecto.Changeset{} = Catalog.change_product(product)
+    end
+
+    test "markdown_product/2 reduces a products price" do
+      product = product_fixture()
+      assert product.unit_price == 120.5
     end
   end
 end
