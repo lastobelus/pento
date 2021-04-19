@@ -10,6 +10,7 @@ defmodule Pento.AccountsFixtures do
   def valid_user_attributes(attrs \\ %{}) do
     Enum.into(attrs, %{
       email: unique_user_email(),
+      username: unique_user_email() |> String.split("@") |> List.first(),
       password: valid_user_password(),
       password_confirmation: valid_user_password()
     })

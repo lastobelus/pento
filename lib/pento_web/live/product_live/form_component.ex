@@ -41,6 +41,8 @@ defmodule PentoWeb.ProductLive.FormComponent do
   end
 
   defp save_product(socket, :new, product_params) do
+    IO.puts("save_product")
+
     case Catalog.create_product(product_params) do
       {:ok, _product} ->
         {:noreply,

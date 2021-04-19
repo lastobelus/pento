@@ -5,12 +5,23 @@ defmodule PentoWeb.ProductLiveTest do
 
   alias Pento.Catalog
 
-  @create_attrs %{description: "some description", name: "some name", sku: 42, unit_price: 120.5}
-  @update_attrs %{description: "some updated description", name: "some updated name", sku: 43, unit_price: 456.7}
+  @create_attrs %{
+    description: "some description",
+    name: "some name",
+    sku: 42,
+    unit_price: 120.5
+  }
+  @update_attrs %{
+    description: "some updated description",
+    name: "some updated name",
+    sku: 43,
+    unit_price: 456.7
+  }
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
   defp fixture(:product) do
-    {:ok, product} = Catalog.create_product(@create_attrs)
+    sku = rem(System.unique_integer([:positive, :monotonic]), 2_000_000_000)
+    {:ok, product} = Catalog.create_product(%{@create_attrs | sku: sku})
     product
   end
 
@@ -39,7 +50,7 @@ defmodule PentoWeb.ProductLiveTest do
 
       assert index_live
              |> form("#product-form", product: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -61,7 +72,7 @@ defmodule PentoWeb.ProductLiveTest do
 
       assert index_live
              |> form("#product-form", product: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -101,7 +112,7 @@ defmodule PentoWeb.ProductLiveTest do
 
       assert show_live
              |> form("#product-form", product: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         show_live
