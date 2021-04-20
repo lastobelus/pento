@@ -75,6 +75,10 @@ defmodule Pento.CatalogTest do
     test "markdown_product/2 reduces a products price" do
       product = product_fixture()
       assert product.unit_price == 120.5
+
+      assert {:ok, %Product{}} = Catalog.markdown_product(product, 20.5)
+      product = Catalog.get_product!(product.id)
+      assert product.unit_price == 100.0
     end
   end
 end
