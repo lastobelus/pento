@@ -4,6 +4,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
   alias Pento.Catalog
 
   @impl true
+
   def update(%{product: product} = assigns, socket) do
     changeset = Catalog.change_product(product)
 

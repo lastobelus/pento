@@ -49,7 +49,8 @@ defmodule Pento.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:phx_gen_auth, "~> 0.7", only: [:dev], runtime: false},
-      {:bamboo, github: "thoughtbot/bamboo"}
+      {:bamboo, github: "thoughtbot/bamboo"},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
   end
 

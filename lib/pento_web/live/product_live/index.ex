@@ -6,7 +6,7 @@ defmodule PentoWeb.ProductLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :products, list_products())}
+    {:ok, setup(socket)}
   end
 
   @impl true
@@ -38,6 +38,12 @@ defmodule PentoWeb.ProductLive.Index do
     {:ok, _} = Catalog.delete_product(product)
 
     {:noreply, assign(socket, :products, list_products())}
+  end
+
+  defp setup(socket) do
+    socket
+    |> assign(:greeting, "Welcome")
+    |> assign(:products, list_products())
   end
 
   defp list_products do
