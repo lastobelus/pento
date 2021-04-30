@@ -6,7 +6,11 @@ defmodule PentoWeb.FAQLiveTest do
   alias Pento.Support
 
   @create_attrs %{answer: "some answer", question: "some question", vote_count: 42}
-  @update_attrs %{answer: "some updated answer", question: "some updated question", vote_count: 43}
+  @update_attrs %{
+    answer: "some updated answer",
+    question: "some updated question",
+    vote_count: 43
+  }
   @invalid_attrs %{answer: nil, question: nil, vote_count: nil}
 
   defp fixture(:faq) do
@@ -39,7 +43,7 @@ defmodule PentoWeb.FAQLiveTest do
 
       assert index_live
              |> form("#faq-form", faq: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -61,7 +65,7 @@ defmodule PentoWeb.FAQLiveTest do
 
       assert index_live
              |> form("#faq-form", faq: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -101,7 +105,7 @@ defmodule PentoWeb.FAQLiveTest do
 
       assert show_live
              |> form("#faq-form", faq: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "&#39;t be blank"
 
       {:ok, _, html} =
         show_live
