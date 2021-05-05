@@ -44,4 +44,8 @@ defmodule PentoWeb.ErrorHelpers do
       Gettext.dgettext(PentoWeb.Gettext, "errors", msg, opts)
     end
   end
+
+  def upload_error_to_string(:too_large), do: "The file is too large"
+  def upload_error_to_string(:too_many_files), do: "You have selected too many files"
+  def upload_error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end

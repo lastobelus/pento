@@ -1,26 +1,61 @@
 <h2><%= @title %></h2>
-
-<%= f = form_for @changeset, "#",
+<section class="row">
+  <section class="column">
+    <%= f = form_for @changeset, "#",
   id: "product-form",
   phx_target: @myself,
   phx_change: "validate",
   phx_submit: "save" %>
-
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
-
-  <%= label f, :description %>
-  <%= text_input f, :description %>
-  <%= error_tag f, :description %>
-
-  <%= label f, :unit_price %>
-  <%= number_input f, :unit_price, step: "any" %>
-  <%= error_tag f, :unit_price %>
-
-  <%= label f, :sku %>
-  <%= number_input f, :sku %>
-  <%= error_tag f, :sku %>
-
-  <%= submit "Save", phx_disable_with: "Saving..." %>
-</form>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+    <%= label f, :description %>
+    <%= text_input f, :description %>
+    <%= error_tag f, :description %>
+    <%= label f, :unit_price %>
+    <%= number_input f, :unit_price, step: "any" %>
+    <%= error_tag f, :unit_price %>
+    <%= label f, :sku %>
+    <%= number_input f, :sku %>
+    <%= error_tag f, :sku %>
+    <div class="row">
+      <div class="column">
+        <%= label f, :image %>
+        <img
+    src="<%= Routes.static_path(@socket, @product.image_upload || "/images/default-thumbnail.png") %>"
+    alt="product image: <%= @product.name %>"
+    style="border: 1px solid #ccc; border-radius: 2px; padding: 2px;box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;"
+    >
+        </div>
+        <div class="column">
+          <%= hidden_input f, :image_upload %>
+          <%= label f, :image_upload %>
+          <%= live_file_input @uploads.image %>
+        </div>
+      </div>
+      <div>
+        <%= submit "Save", phx_disable_with: "Saving..." %>
+      </div>
+    </form>
+  </section>
+  <section class="column" phx-drop-target="<%= @uploads.image.ref %>" style="border: 1px solid #ccc; border-radius: 8px; background-color: #eee; padding: 1em;">
+    <%= for entry <- @uploads.image.entries do %>
+      <article class="upload-entry">
+        <figure>
+          <%# Phoenix.LiveView.Helpers.live_img_preview/2 renders a client-side preview %>
+          <%= live_img_preview entry %>
+          <figcaption><%= entry.client_name %></figcaption>
+        </figure>
+        <%# entry.progress will update automatically for in-flight entries %>
+        <progress value="<%= entry.progress %>" max="100"> <%= entry.progress %>% </progress>
+        <%# a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 %>
+        <button phx-click="cancel-upload" phx-target="<%= @myself %>" phx-value-ref="<%= entry.ref %>" aria-label="cancel">&times;</button>
+        <%# Phoenix.LiveView.Helpers.upload_errors/2 returns a list of error atoms %>
+        <%= for err <- upload_errors(@uploads.image, entry) do %>
+          <p class="alert alert-danger"><%= upload_error_to_string(err) %></p>
+        <% end %>
+      </article>
+    <% end %>
+  </div>
+</section>
+</section>
