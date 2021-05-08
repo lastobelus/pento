@@ -7,6 +7,7 @@ defmodule Pento.Catalog do
   alias Pento.Repo
 
   alias Pento.Catalog.Product
+  alias Pento.Catalog.Search
 
   @doc """
   Returns the list of products.
@@ -109,5 +110,28 @@ defmodule Pento.Catalog do
     product
     |> Product.markdown_price_changeset(%{unit_price: current_price - amt})
     |> Repo.update()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for searching for products by sku
+  """
+  def change_search(%Search{} = search, attrs \\ %{}) do
+    Search.changeset(search, attrs)
+  end
+
+  @doc """
+    What does it do?
+  """
+  def search_products(%Search{} = search, attrs) do
+    changeset = change_search(search, attrs)
+
+    cond do
+      changeset.valid? ->
+        search = Ecto.Changeset.apply_changes(changeset)
+        {:ok, changeset, Repo.all(from p in Product, where: p.sku == ^search.query)}
+
+      true ->
+        {:error, changeset}
+    end
   end
 end

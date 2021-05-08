@@ -1,0 +1,15 @@
+<section class="phx-hero search">
+  <%= f = form_for @changeset, "#",
+  id: "catalog-search-form",
+  phx_change: "validate",
+  phx_submit: "save"
+%>
+  <%= label f, :query %>
+  <%= text_input f, :query %>
+  <%= error_tag f, :query %>
+  <%= submit "Search Catalog", phx_disable_with: "Searching..." %>
+</form>
+</section>
+<section>
+  <%= live_component(@socket, PentoWeb.ProductLive.ProductListingComponent, id: :index, products: @products) %>
+</section>

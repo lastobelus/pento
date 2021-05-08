@@ -19,7 +19,7 @@ defmodule Pento.Promo do
     cond do
       changeset.valid? ->
         IO.puts("===== Would send email here ====")
-        {:ok, recipient}
+        {:ok, Ecto.Changeset.apply_changes(changeset)}
 
       true ->
         {:error, changeset}
