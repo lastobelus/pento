@@ -1,9 +1,9 @@
 {
   "editor.renderLineHighlight": "all",
-  "window.zoomLevel": -1.2,
   "editor.formatOnSave": true,
   "editor.formatOnSaveTimeout": 3000,
   "files.autoSave": "onFocusChange",
   "editor.fontSize": 14,
-  "todo.file.name": "*.todo"
+  "todo.file.name": "*.todo",
+  "window.zoomLevel": 0.1
 }
